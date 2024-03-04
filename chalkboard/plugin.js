@@ -64,7 +64,7 @@ function scriptPath() {
 	if ( document.currentScript ) {
 		src = document.currentScript.src;
 	} else {
-		var sel = document.querySelector( 'script[src$="/chalkboard/plugin.js"]' )
+		var sel = document.querySelector( 'script[src$="/chalkboard/plugin.js"]' );
 		if ( sel ) {
 			src = sel.src;
 		}
@@ -163,7 +163,7 @@ const initChalkboard = function ( Reveal ) {
 
   var sponge = 		{
 		cursor: 'url(' + path + 'img/sponge.png), auto'
-	}
+	};
 
 
 	var keyBindings = {
@@ -291,14 +291,14 @@ const initChalkboard = function ( Reveal ) {
 
 	function whenReady( callback ) {
 		// wait for markdown to be parsed and code to be highlighted
-		if ( !document.querySelector( 'section[data-markdown]:not([data-markdown-parsed])' ) 
-			   && !document.querySelector( '[data-load]:not([data-loaded])') 
-		     && !document.querySelector( 'code[data-line-numbers*="|"]') 	
+		if ( !document.querySelector( 'section[data-markdown]:not([data-markdown-parsed])' )
+			   && !document.querySelector( '[data-load]:not([data-loaded])')
+		     && !document.querySelector( 'code[data-line-numbers*="|"]')
 		) {
 			callback();
 		} else {
 			console.log( "Wait for external sources to be loaded and code to be highlighted" );
-			setTimeout( whenReady, 500, callback )
+			setTimeout( whenReady, 500, callback );
 		}
 	}
 
@@ -308,7 +308,7 @@ const initChalkboard = function ( Reveal ) {
 			callback();
 		} else {
 			console.log( "Wait for drawings to be loaded" );
-			setTimeout( whenLoaded, 500, callback )
+			setTimeout( whenLoaded, 500, callback );
 		}
 	}
 
@@ -417,7 +417,7 @@ const initChalkboard = function ( Reveal ) {
 			mode,
 			board
 		};
-		document.dispatchEvent( message );	
+		document.dispatchEvent( message );
 	}
 
 	function setupDrawingCanvas( id ) {
@@ -427,7 +427,7 @@ const initChalkboard = function ( Reveal ) {
 		container.setAttribute( 'data-prevent-swipe', 'true' );
 		container.oncontextmenu = function () {
 			return false;
-		}
+		};
 
     changeCursor( container, pens[ id ][ color[ id ] ] );
 
@@ -443,6 +443,7 @@ const initChalkboard = function ( Reveal ) {
 			container.style.opacity = 1;
 			container.style.visibility = 'visible';
 			container.style.pointerEvents = 'none';
+			container.style['backdrop-filter'] = 'none';
 
 			var slides = document.querySelector( '.slides' );
 			var aspectRatio = Reveal.getConfig().width / Reveal.getConfig().height;
@@ -612,9 +613,9 @@ const initChalkboard = function ( Reveal ) {
 	}
 
 	function updateStorage() {
-		var json = JSON.stringify( storage )
+		var json = JSON.stringify( storage );
 		if ( config.storage ) {
-			sessionStorage.setItem( config.storage, json )
+			sessionStorage.setItem( config.storage, json );
 		}
 		return json;
 	}
@@ -691,7 +692,7 @@ const initChalkboard = function ( Reveal ) {
 				return data;
 			}
 		}
-		var page = Number( Reveal.getCurrentSlide().getAttribute('data-pdf-page-number') ); 
+		var page = Number( Reveal.getCurrentSlide().getAttribute('data-pdf-page-number') );
 //console.log( indices, Reveal.getCurrentSlide() );
 		storage[ id ].data.push( {
 			slide: indices,
@@ -933,7 +934,7 @@ const initChalkboard = function ( Reveal ) {
 			}
 		}
 	}
- 
+
 	function eraseWithSponge( context, x, y ) {
 		context.save();
 		context.beginPath();
@@ -1060,7 +1061,7 @@ const initChalkboard = function ( Reveal ) {
 	/**
 	 * Set the  color
 	 */
-	function setColor( index, record ) {    
+	function setColor( index, record ) {
  		// protect against out of bounds (this could happen when
   	// replaying events recorded with different color settings).
     if ( index >= pens[ mode ].length ) index = 0;
@@ -1933,7 +1934,7 @@ const initChalkboard = function ( Reveal ) {
 			];
 
 			if ( config.storage ) {
-				sessionStorage.setItem( config.storage, null )
+				sessionStorage.setItem( config.storage, null );
 			}
 			// broadcast
 			var message = new CustomEvent( messageType );
